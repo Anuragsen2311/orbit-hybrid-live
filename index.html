@@ -144,95 +144,10 @@
       }
     }
 
-    function showFlowOptions(options) {
-      nudgeOptions.innerHTML = "";
-      options.forEach((option) => {
-        const btn = document.createElement("button");
-        btn.className = "option-button";
-        btn.textContent = option;
-        btn.onclick = () => {
-        addMessage("You selected: " + option, "user");
-        switch(option) {
-          case "Katherine joined the Theater Pod":
-            addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
-            showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
-            break;
-          case "Leo signed up for Calisthenics Sprint":
-            addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
-            showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
-            break;
-          case "Priya is volunteering at the CSR drive":
-            addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
-            showFlowOptions(["Count me in for CSR", "Maybe next time"]);
-            break;
-          case "Aaron joined the Mindfulness Reset":
-            addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
-            showFlowOptions(["Join Reset", "Pass"]);
-            break;
-          case "Emily is leading a book club on Culture":
-            addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
-            showFlowOptions(["Join Book Club", "Skip"]);
-            break;
-          case "Maybe later":
-            addMessage("Orbit: No problem — I’ll remind you again closer to the weekend!", "orbit");
-            break;
-          case "Not interested":
-            addMessage("Orbit: All good — your space, your pace 😊", "orbit");
-            break;
-          case "Join Calisthenics":
-            addMessage("Orbit: Got it! Signing you up for the Calisthenics Pod 💪", "orbit");
-            break;
-          case "Nominate a Colleague":
-            addMessage("Orbit: Great — send me a name and I’ll draft a thank-you shoutout 📣", "orbit");
-            break;
-          case "Join the Theater Pod":
-            addMessage("Orbit: Perfect — you’re in. Expect the first nudge Friday 10am 🎭", "orbit");
-            break;
-          case "Play breathing track":
-            addMessage("Orbit: Here's a 3-minute breathing track to ground yourself 🌬️", "orbit");
-            break;
-          case "Try sound therapy":
-            addMessage("Orbit: Sending over a binaural session now 🎧", "orbit");
-            break;
-          case "Write down what’s bugging me":
-            addMessage("Orbit: Reflect freely — I won’t store this. Just let it out 📝", "orbit");
-            break;
-          case "Gratitude reset":
-            addMessage("Orbit: Take 30 seconds and list 3 small wins today 💡", "orbit");
-            break;
-          case "Light meme":
-            addMessage("Orbit: One culture-friendly meme coming your way 🤭", "orbit");
-            break;
-          case "Talk to someone":
-            addMessage("Orbit: Noted — I’ll notify the wellness coach for a light check-in ☎️", "orbit");
-            break;
-          case "Request time off":
-            addMessage("Orbit: Next Fri–Mon looks light. Prepping your time-off request ✈️", "orbit");
-            break;
-          case "Adjust workload":
-            addMessage("Orbit: Let me check your sprint and see what can shift 🔁", "orbit");
-            break;
-          case "Talk to a wellness coach":
-            addMessage("Orbit: Routing your concern to our human wellness partner 💬", "orbit");
-            break;
-          case "Show me mentors":
-            addMessage("Orbit: Pulling up CXO and senior mentors across functions 👥", "orbit");
-            break;
-          case "Upskill with leadership Pods":
-            addMessage("Orbit: Got it — highlighting top 3 leadership Pods tailored for you 🚀", "orbit");
-            break;
-          case "Reflect for now":
-            addMessage("Orbit: Take your time — you know where to find me 🪐", "orbit");
-            break;
-        }
-        if (option === "Yes, sign me up") {
-          addMessage("Orbit: Awesome — you’re now on the list for the Open Air Theatre Workshop 🎭 I’ve also added a reminder to your calendar!", "orbit");
-        }
-      };
-        nudgeOptions.appendChild(btn);
-      });
-    }
-
+    
+    
+    
+    
     function handleUserInput() {
       const text = userInput.value.trim();
       if (!text) return;
@@ -244,12 +159,24 @@
         addMessage("Orbit: That’s a very real feeling, Sam. It happens to the best of us.", "orbit");
         addMessage("Orbit: Would you like to explore mentorship or leadership Pods?", "orbit");
         showFlowOptions(["Show me mentors", "Upskill with leadership Pods", "Reflect for now"]);
+      } else if (lower.includes("anxious") || lower.includes("overwhelmed")) {
+        addMessage("Orbit: I hear you. Want to try journaling for 2 mins or just take a pause?", "orbit");
+        showFlowOptions(["Start a journal", "Just pause"]);
+      } else if (lower.includes("leaderboard") || lower.includes("top teams")) {
+        addMessage("Orbit: This week’s top Pods by engagement 🌟", "orbit");
+        addMessage("1. Wellness Warriors 💪\n2. The Culture Club 🎭\n3. Code & Connect 💻", "orbit");
+      } else if (lower.includes("remind me later") || lower.includes("nudge me")) {
+        addMessage("Orbit: Noted — I’ll send a nudge your way in an hour 🔔", "orbit");
+      } else if (lower.includes("join") && lower.includes("book club")) {
+        addMessage("Orbit: Added! You’ll get a weekly drop of books and discussion invites 📚", "orbit");
       } else {
         addMessage("Orbit: I'm still learning how to respond to that. Can I help you with something else?", "orbit");
       }
     }
-  
-    function addPeerActivityTab() {
+
+
+
+function addPeerActivityTab() {
       const peerBtn = document.createElement("button");
       peerBtn.className = "option-button";
       peerBtn.textContent = "See what your peers are doing";
@@ -268,6 +195,7 @@
       ]);
     }
 
+
     function showFlowOptions(options) {
       nudgeOptions.innerHTML = "";
       options.forEach((option) => {
@@ -277,40 +205,82 @@
         btn.onclick = () => {
           addMessage("You selected: " + option, "user");
           switch(option) {
-          case "Katherine joined the Theater Pod":
-            addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
-            showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
-            break;
-          case "Leo signed up for Calisthenics Sprint":
-            addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
-            showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
-            break;
-          case "Priya is volunteering at the CSR drive":
-            addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
-            showFlowOptions(["Count me in for CSR", "Maybe next time"]);
-            break;
-          case "Aaron joined the Mindfulness Reset":
-            addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
-            showFlowOptions(["Join Reset", "Pass"]);
-            break;
-          case "Emily is leading a book club on Culture":
-            addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
-            showFlowOptions(["Join Book Club", "Skip"]);
-            break;
             case "Katherine joined the Theater Pod":
-              addMessage("Orbit: Awesome — you’re now on the list for the Open Air Theatre Workshop 🎭 I’ve also added a reminder to your calendar!", "orbit");
+              addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
+              showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
               break;
             case "Leo signed up for Calisthenics Sprint":
-              addMessage("Orbit: Great — you’ve been added to the early morning Calisthenics Pod 💪 See you at 7 AM sharp!", "orbit");
+              addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
+              showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
               break;
             case "Priya is volunteering at the CSR drive":
-              addMessage("Orbit: Signed you up for the weekend CSR drive 🛠️ You’ll receive an impact summary Monday!", "orbit");
+              addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
+              showFlowOptions(["Count me in for CSR", "Maybe next time"]);
               break;
             case "Aaron joined the Mindfulness Reset":
-              addMessage("Orbit: Joining you in — I’ve blocked 15 mins on your calendar for a guided reset 🧘‍♂️", "orbit");
+              addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
+              showFlowOptions(["Join Reset", "Pass"]);
               break;
             case "Emily is leading a book club on Culture":
-              addMessage("Orbit: You’re in! Emily’s first discussion starts Thursday noon. Calendar invite sent 📚", "orbit");
+              addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
+              showFlowOptions(["Join Book Club", "Skip"]);
+              break;
+            case "Yes, sign me up for Theater":
+              addMessage("Orbit: You’re now on the list for the Theater Workshop 🎭 See you Saturday at Golden Gate Park!", "orbit");
+              break;
+            case "Yes, join Calisthenics":
+            case "Join Calisthenics":
+              addMessage("Orbit: You’re signed up for the Calisthenics Pod 💪 Can’t wait to see you tomorrow at 7 AM on the rooftop!", "orbit");
+              break;
+            case "Count me in for CSR":
+              addMessage("Orbit: Awesome — you’re registered for the CSR drive 🛠️ Let’s make an impact together!", "orbit");
+              break;
+            case "Join Reset":
+              addMessage("Orbit: You’re in! I’ve blocked 15 mins Friday at 3 PM for a guided Mindfulness Reset 🧘‍♂️", "orbit");
+              break;
+            case "Join Book Club":
+              addMessage("Orbit: Added! See you Thursday at 12 PM for Emily’s book club 📚", "orbit");
+              break;
+            case "No thanks":
+            case "Maybe next time":
+            case "Pass":
+            case "Skip":
+              addMessage("Orbit: No worries — always here when you’re ready 🙂", "orbit");
+              break;
+            
+            case "Show me mentors":
+              addMessage("Orbit: Here are a few amazing folks across the org you can reach out to 👥", "orbit");
+              showFlowOptions(["Ayesha (Design Head)", "Rahul (Engineering Lead)", "Sneha (Product Manager)"]);
+              break;
+            case "Ayesha (Design Head)":
+              addMessage("Orbit: Ayesha is known for fostering creativity and coaching new joiners. Dropping her calendar link to connect 🎨", "orbit");
+              break;
+            case "Rahul (Engineering Lead)":
+              addMessage("Orbit: Rahul mentors engineers across pods and hosts monthly AMA sessions. Check your inbox for the upcoming invite 🧑‍💻", "orbit");
+              break;
+            case "Sneha (Product Manager)":
+              addMessage("Orbit: Sneha’s mentorship covers stakeholder communication and roadmap thinking. She’s open for 1:1 next Tuesday 💬", "orbit");
+              break;
+
+            case "Upskill with leadership Pods":
+              addMessage("Orbit: Here are top leadership Pods to explore 🚀", "orbit");
+              showFlowOptions(["Leading Without Authority", "Strategic Thinking 101", "Building High-Trust Teams"]);
+              break;
+            case "Leading Without Authority":
+              addMessage("Orbit: That’s a powerful module! You’re enrolled for the next cohort starting Monday 5 PM 🗣️", "orbit");
+              break;
+            case "Strategic Thinking 101":
+              addMessage("Orbit: Course added! Expect weekly nudges and reflection prompts to challenge your assumptions 🔍", "orbit");
+              break;
+            case "Building High-Trust Teams":
+              addMessage("Orbit: Noted — you’re on the list. Watch for a resource drop and team challenge invite on Slack 🔗", "orbit");
+              break;
+
+            case "Reflect for now":
+              addMessage("Orbit: Totally fair. Take a breather and come back when you’re ready 🧠", "orbit");
+              break;
+default:
+              addMessage("Orbit: I’ve logged that. Let me know if you need anything else 🪐", "orbit");
               break;
           }
         };
