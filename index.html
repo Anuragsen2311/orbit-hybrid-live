@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Orbit Hybrid Assistant</title>
+  <title>Orbit AI Assistant (Demo)</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -57,7 +58,6 @@
     }
     .input-area {
       display: flex;
-      margin-top: 10px;
     }
     input {
       flex: 1;
@@ -84,20 +84,27 @@
 </head>
 <body>
   <div class="chat-box">
-    <div class="logo"><span>🪐 Orbit</span></div>
+    <div class="logo">
+      <span style="font-size: 20px;">🪐</span>
+      <span>Orbit</span>
+    </div>
     <div class="messages" id="messages"></div>
     <div class="options" id="nudgeOptions"></div>
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Ask Orbit anything..." />
+      <input id="userInput" type="text" placeholder="Ask Orbit anything..." onkeydown="if(event.key === 'Enter') handleUserInput()">
     </div>
   </div>
-
   <script>
     const messagesDiv = document.getElementById("messages");
-    const input = document.getElementById("userInput");
     const nudgeOptions = document.getElementById("nudgeOptions");
+    const userInput = document.getElementById("userInput");
 
-    const moods = ["Feeling Great", "Feeling Worked Up", "Need a Breather"];
+    const moods = ["Feeling Great", "Feeling Worked Up", "Need a Breather", "Feeling Burnt Out"];
+
+    window.onload = () => {
+      addMessage("Hi Sam 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
+      showMoodOptions();
+    };
 
     function addMessage(text, sender) {
       const msg = document.createElement("div");
@@ -123,50 +130,45 @@
       nudgeOptions.innerHTML = "";
       if (mood === "Feeling Great") {
         addMessage("Orbit: That’s awesome to hear! Want to channel that energy into something meaningful today?", "orbit");
-        showFlowOptions(["Join the Weekend Calisthenics Challenge", "Nominate a colleague for a Shoutout", "Enroll in the Theater Workshop for Team Presence"]);
+        showFlowOptions(["Join Calisthenics", "Nominate a Colleague", "Join the Theater Pod"]);
       } else if (mood === "Feeling Worked Up") {
-        addMessage("Orbit: Got it. Let's bring things down gently.", "orbit");
-        showFlowOptions(["Yes, play a calm breathing track", "Sound therapy session", "I'd rather write down what's bugging me"]);
+        addMessage("Orbit: Got it. Let’s bring things down gently.", "orbit");
+        showFlowOptions(["Play breathing track", "Try sound therapy", "Write down what’s bugging me"]);
       } else if (mood === "Need a Breather") {
-        addMessage("Orbit: Let’s reset gently. A breather can be powerful.", "orbit");
-        showFlowOptions(["1-Minute Gratitude Reset", "Check Hatha Yoga Schedule", "Read a Quick Leadership Nugget"]);
+        addMessage("Orbit: You don’t have to fix anything right now. Want a reset or just something light?", "orbit");
+        showFlowOptions(["Gratitude reset", "Light meme", "Talk to someone"]);
+      } else if (mood === "Feeling Burnt Out") {
+        addMessage("Orbit: You’ve been pushing hard. Want to request time off, adjust workload, or talk to someone?", "orbit");
+        showFlowOptions(["Request time off", "Adjust workload", "Talk to a wellness coach"]);
       }
     }
 
     function showFlowOptions(options) {
-      options.forEach(option => {
+      nudgeOptions.innerHTML = "";
+      options.forEach((option) => {
         const btn = document.createElement("button");
         btn.className = "option-button";
         btn.textContent = option;
-        btn.onclick = () => {
-          addMessage("You: " + option, "user");
-          addMessage("Orbit: Great choice! I'll take care of that for you ✨", "orbit");
-        };
+        btn.onclick = () => addMessage("You selected: " + option, "user");
         nudgeOptions.appendChild(btn);
       });
     }
 
-    input.addEventListener("keypress", async function(e) {
-      if (e.key === "Enter" && input.value.trim()) {
-        const message = input.value.trim();
-        addMessage(message, "user");
-        input.value = "";
+    function handleUserInput() {
+      const text = userInput.value.trim();
+      if (!text) return;
+      addMessage("You: " + text, "user");
+      userInput.value = "";
 
-        const response = await fetch("/api/orbit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-
-        const data = await response.json();
-        addMessage(data.reply, "orbit");
+      const lower = text.toLowerCase();
+      if (lower.includes("motivation") || lower.includes("lost")) {
+        addMessage("Orbit: That’s a very real feeling, Sam. It happens to the best of us.", "orbit");
+        addMessage("Orbit: Would you like to explore mentorship or leadership Pods?", "orbit");
+        showFlowOptions(["Show me mentors", "Upskill with leadership Pods", "Reflect for now"]);
+      } else {
+        addMessage("Orbit: I'm still learning how to respond to that. Can I help you with something else?", "orbit");
       }
-    });
-
-    window.onload = () => {
-      addMessage("Hi 👋 I'm Orbit — your emotionally intelligent assistant. How are you feeling today?", "orbit");
-      showMoodOptions();
-    };
+    }
   </script>
 </body>
 </html>
