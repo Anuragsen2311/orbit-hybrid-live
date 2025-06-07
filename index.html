@@ -104,12 +104,7 @@
     window.onload = () => {
       addMessage("Hi Sam 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
       showMoodOptions();
-
-      // Communal nudge after 10s
-      setTimeout(() => {
-        addMessage("Orbit: Just FYI — Katherine from Marketing joined the Theater Pod for this weekend. Since you’re into Theater, want me to RSVP you too?", "orbit");
-        showFlowOptions(["Yes, sign me up", "Maybe later", "Not interested"]);
-      }, 10000);
+      addPeerActivityTab();
     };
 
     function addMessage(text, sender) {
@@ -158,6 +153,26 @@
         btn.onclick = () => {
         addMessage("You selected: " + option, "user");
         switch(option) {
+          case "Katherine joined the Theater Pod":
+            addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
+            showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
+            break;
+          case "Leo signed up for Calisthenics Sprint":
+            addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
+            showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
+            break;
+          case "Priya is volunteering at the CSR drive":
+            addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
+            showFlowOptions(["Count me in for CSR", "Maybe next time"]);
+            break;
+          case "Aaron joined the Mindfulness Reset":
+            addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
+            showFlowOptions(["Join Reset", "Pass"]);
+            break;
+          case "Emily is leading a book club on Culture":
+            addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
+            showFlowOptions(["Join Book Club", "Skip"]);
+            break;
           case "Maybe later":
             addMessage("Orbit: No problem — I’ll remind you again closer to the weekend!", "orbit");
             break;
@@ -233,7 +248,75 @@
         addMessage("Orbit: I'm still learning how to respond to that. Can I help you with something else?", "orbit");
       }
     }
-  </script>
+  
+    function addPeerActivityTab() {
+      const peerBtn = document.createElement("button");
+      peerBtn.className = "option-button";
+      peerBtn.textContent = "See what your peers are doing";
+      peerBtn.onclick = () => showPeerActivities();
+      document.getElementById("nudgeOptions").appendChild(peerBtn);
+    }
+
+    function showPeerActivities() {
+      addMessage("Orbit: Here’s what some of your teammates are up to this week:", "orbit");
+      showFlowOptions([
+        "Katherine joined the Theater Pod",
+        "Leo signed up for Calisthenics Sprint",
+        "Priya is volunteering at the CSR drive",
+        "Aaron joined the Mindfulness Reset",
+        "Emily is leading a book club on Culture"
+      ]);
+    }
+
+    function showFlowOptions(options) {
+      nudgeOptions.innerHTML = "";
+      options.forEach((option) => {
+        const btn = document.createElement("button");
+        btn.className = "option-button";
+        btn.textContent = option;
+        btn.onclick = () => {
+          addMessage("You selected: " + option, "user");
+          switch(option) {
+          case "Katherine joined the Theater Pod":
+            addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
+            showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
+            break;
+          case "Leo signed up for Calisthenics Sprint":
+            addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
+            showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
+            break;
+          case "Priya is volunteering at the CSR drive":
+            addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
+            showFlowOptions(["Count me in for CSR", "Maybe next time"]);
+            break;
+          case "Aaron joined the Mindfulness Reset":
+            addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
+            showFlowOptions(["Join Reset", "Pass"]);
+            break;
+          case "Emily is leading a book club on Culture":
+            addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
+            showFlowOptions(["Join Book Club", "Skip"]);
+            break;
+            case "Katherine joined the Theater Pod":
+              addMessage("Orbit: Awesome — you’re now on the list for the Open Air Theatre Workshop 🎭 I’ve also added a reminder to your calendar!", "orbit");
+              break;
+            case "Leo signed up for Calisthenics Sprint":
+              addMessage("Orbit: Great — you’ve been added to the early morning Calisthenics Pod 💪 See you at 7 AM sharp!", "orbit");
+              break;
+            case "Priya is volunteering at the CSR drive":
+              addMessage("Orbit: Signed you up for the weekend CSR drive 🛠️ You’ll receive an impact summary Monday!", "orbit");
+              break;
+            case "Aaron joined the Mindfulness Reset":
+              addMessage("Orbit: Joining you in — I’ve blocked 15 mins on your calendar for a guided reset 🧘‍♂️", "orbit");
+              break;
+            case "Emily is leading a book club on Culture":
+              addMessage("Orbit: You’re in! Emily’s first discussion starts Thursday noon. Calendar invite sent 📚", "orbit");
+              break;
+          }
+        };
+        nudgeOptions.appendChild(btn);
+      });
+    }
+</script>
 </body>
 </html>
-
