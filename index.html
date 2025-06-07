@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Orbit AI Assistant (Demo)</title>
-  <style>
+<meta charset="utf-8"/>
+<title>Orbit AI Assistant (Demo)</title>
+<style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f8fb;
@@ -83,18 +84,18 @@
   </style>
 </head>
 <body>
-  <div class="chat-box">
-    <div class="logo">
-      <span style="font-size: 20px;">🪐</span>
-      <span>Orbit</span>
-    </div>
-    <div class="messages" id="messages"></div>
-    <div class="options" id="nudgeOptions"></div>
-    <div class="input-area">
-      <input id="userInput" type="text" placeholder="Ask Orbit anything..." onkeydown="if(event.key === 'Enter') handleUserInput()">
-    </div>
-  </div>
-  <script>
+<div class="chat-box">
+<div class="logo">
+<span style="font-size: 20px;">🪐</span>
+<span>Orbit</span>
+</div>
+<div class="messages" id="messages"></div>
+<div class="options" id="nudgeOptions"></div>
+<div class="input-area">
+<input id="userInput" onkeydown="if(event.key === 'Enter') handleUserInput()" placeholder="Ask Orbit anything..." type="text"/>
+</div>
+<button id="resetBtn" style="margin-top:10px; padding:8px; border:none; background-color:#f05050; color:white; border-radius:10px; cursor:pointer;">🔄 Reset Chat</button></div>
+<script>
     const messagesDiv = document.getElementById("messages");
     const nudgeOptions = document.getElementById("nudgeOptions");
     const userInput = document.getElementById("userInput");
@@ -130,16 +131,16 @@
       addMessage("You: " + mood, "user");
       nudgeOptions.innerHTML = "";
       if (mood === "Feeling Great") {
-        addMessage("Orbit: That’s awesome to hear! Want to channel that energy into something meaningful today?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: That’s awesome to hear! Want to channel that energy into something meaningful today?", "orbit"));
         showFlowOptions(["Join Calisthenics", "Nominate a Colleague", "Join the Theater Pod"]);
       } else if (mood === "Feeling Worked Up") {
-        addMessage("Orbit: Got it. Let’s bring things down gently.", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: Got it. Let’s bring things down gently.", "orbit"));
         showFlowOptions(["Play breathing track", "Try sound therapy", "Write down what’s bugging me"]);
       } else if (mood === "Need a Breather") {
-        addMessage("Orbit: You don’t have to fix anything right now. Want a reset or just something light?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: You don’t have to fix anything right now. Want a reset or just something light?", "orbit"));
         showFlowOptions(["Gratitude reset", "Light meme", "Talk to someone"]);
       } else if (mood === "Feeling Burnt Out") {
-        addMessage("Orbit: You’ve been pushing hard. Want to request time off, adjust workload, or talk to someone?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: You’ve been pushing hard. Want to request time off, adjust workload, or talk to someone?", "orbit"));
         showFlowOptions(["Request time off", "Adjust workload", "Talk to a wellness coach"]);
       }
     }
@@ -156,21 +157,21 @@
 
       const lower = text.toLowerCase();
       if (lower.includes("motivation") || lower.includes("lost")) {
-        addMessage("Orbit: That’s a very real feeling, Sam. It happens to the best of us.", "orbit");
-        addMessage("Orbit: Would you like to explore mentorship or leadership Pods?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: That’s a very real feeling, Sam. It happens to the best of us.", "orbit"));
+        showTypingAndReply(() => addMessage("Orbit: Would you like to explore mentorship or leadership Pods?", "orbit"));
         showFlowOptions(["Show me mentors", "Upskill with leadership Pods", "Reflect for now"]);
       } else if (lower.includes("anxious") || lower.includes("overwhelmed")) {
-        addMessage("Orbit: I hear you. Want to try journaling for 2 mins or just take a pause?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: I hear you. Want to try journaling for 2 mins or just take a pause?", "orbit"));
         showFlowOptions(["Start a journal", "Just pause"]);
       } else if (lower.includes("leaderboard") || lower.includes("top teams")) {
-        addMessage("Orbit: This week’s top Pods by engagement 🌟", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: This week’s top Pods by engagement 🌟", "orbit"));
         addMessage("1. Wellness Warriors 💪\n2. The Culture Club 🎭\n3. Code & Connect 💻", "orbit");
       } else if (lower.includes("remind me later") || lower.includes("nudge me")) {
-        addMessage("Orbit: Noted — I’ll send a nudge your way in an hour 🔔", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: Noted — I’ll send a nudge your way in an hour 🔔", "orbit"));
       } else if (lower.includes("join") && lower.includes("book club")) {
-        addMessage("Orbit: Added! You’ll get a weekly drop of books and discussion invites 📚", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: Added! You’ll get a weekly drop of books and discussion invites 📚", "orbit"));
       } else {
-        addMessage("Orbit: I'm still learning how to respond to that. Can I help you with something else?", "orbit");
+        showTypingAndReply(() => addMessage("Orbit: I'm still learning how to respond to that. Can I help you with something else?", "orbit"));
       }
     }
 
@@ -185,7 +186,7 @@ function addPeerActivityTab() {
     }
 
     function showPeerActivities() {
-      addMessage("Orbit: Here’s what some of your teammates are up to this week:", "orbit");
+      showTypingAndReply(() => addMessage("Orbit: Here’s what some of your teammates are up to this week:", "orbit"));
       showFlowOptions([
         "Katherine joined the Theater Pod",
         "Leo signed up for Calisthenics Sprint",
@@ -203,90 +204,112 @@ function addPeerActivityTab() {
         btn.className = "option-button";
         btn.textContent = option;
         btn.onclick = () => {
-          addMessage("You selected: " + option, "user");
+          addMessage(option, "user");
           switch(option) {
             case "Katherine joined the Theater Pod":
-              addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: The Open Air Theatre Workshop is happening this Saturday at Golden Gate Park, San Francisco 🎭", "orbit"));
               showFlowOptions(["Yes, sign me up for Theater", "No thanks"]);
               break;
             case "Leo signed up for Calisthenics Sprint":
-              addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: The Calisthenics Pod meets every morning 7 AM at the rooftop gym starting Monday 🏋️", "orbit"));
               showFlowOptions(["Yes, join Calisthenics", "No thanks"]);
               break;
             case "Priya is volunteering at the CSR drive":
-              addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: The CSR drive takes place this Sunday at the City Shelter Center 🛠️", "orbit"));
               showFlowOptions(["Count me in for CSR", "Maybe next time"]);
               break;
             case "Aaron joined the Mindfulness Reset":
-              addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: The Mindfulness Reset session is scheduled for Friday 3 PM on Zoom 🧘‍♂️", "orbit"));
               showFlowOptions(["Join Reset", "Pass"]);
               break;
             case "Emily is leading a book club on Culture":
-              addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Emily’s book club starts Thursday at 12 PM in Conference Room B. This week’s read: ‘Leaders Eat Last’ 📚", "orbit"));
               showFlowOptions(["Join Book Club", "Skip"]);
               break;
             case "Yes, sign me up for Theater":
-              addMessage("Orbit: You’re now on the list for the Theater Workshop 🎭 See you Saturday at Golden Gate Park!", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: You’re now on the list for the Theater Workshop 🎭 See you Saturday at Golden Gate Park!", "orbit"));
               break;
             case "Yes, join Calisthenics":
             case "Join Calisthenics":
-              addMessage("Orbit: You’re signed up for the Calisthenics Pod 💪 Can’t wait to see you tomorrow at 7 AM on the rooftop!", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: You’re signed up for the Calisthenics Pod 💪 Can’t wait to see you tomorrow at 7 AM on the rooftop!", "orbit"));
               break;
             case "Count me in for CSR":
-              addMessage("Orbit: Awesome — you’re registered for the CSR drive 🛠️ Let’s make an impact together!", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Awesome — you’re registered for the CSR drive 🛠️ Let’s make an impact together!", "orbit"));
               break;
             case "Join Reset":
-              addMessage("Orbit: You’re in! I’ve blocked 15 mins Friday at 3 PM for a guided Mindfulness Reset 🧘‍♂️", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: You’re in! I’ve blocked 15 mins Friday at 3 PM for a guided Mindfulness Reset 🧘‍♂️", "orbit"));
               break;
             case "Join Book Club":
-              addMessage("Orbit: Added! See you Thursday at 12 PM for Emily’s book club 📚", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Added! See you Thursday at 12 PM for Emily’s book club 📚", "orbit"));
               break;
             case "No thanks":
             case "Maybe next time":
             case "Pass":
             case "Skip":
-              addMessage("Orbit: No worries — always here when you’re ready 🙂", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: No worries — always here when you’re ready 🙂", "orbit"));
               break;
             
             case "Show me mentors":
-              addMessage("Orbit: Here are a few amazing folks across the org you can reach out to 👥", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Here are a few amazing folks across the org you can reach out to 👥", "orbit"));
               showFlowOptions(["Ayesha (Design Head)", "Rahul (Engineering Lead)", "Sneha (Product Manager)"]);
               break;
             case "Ayesha (Design Head)":
-              addMessage("Orbit: Ayesha is known for fostering creativity and coaching new joiners. Dropping her calendar link to connect 🎨", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Ayesha is known for fostering creativity and coaching new joiners. Dropping her calendar link to connect 🎨", "orbit"));
               break;
             case "Rahul (Engineering Lead)":
-              addMessage("Orbit: Rahul mentors engineers across pods and hosts monthly AMA sessions. Check your inbox for the upcoming invite 🧑‍💻", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Rahul mentors engineers across pods and hosts monthly AMA sessions. Check your inbox for the upcoming invite 🧑‍💻", "orbit"));
               break;
             case "Sneha (Product Manager)":
-              addMessage("Orbit: Sneha’s mentorship covers stakeholder communication and roadmap thinking. She’s open for 1:1 next Tuesday 💬", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Sneha’s mentorship covers stakeholder communication and roadmap thinking. She’s open for 1:1 next Tuesday 💬", "orbit"));
               break;
 
             case "Upskill with leadership Pods":
-              addMessage("Orbit: Here are top leadership Pods to explore 🚀", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Here are top leadership Pods to explore 🚀", "orbit"));
               showFlowOptions(["Leading Without Authority", "Strategic Thinking 101", "Building High-Trust Teams"]);
               break;
             case "Leading Without Authority":
-              addMessage("Orbit: That’s a powerful module! You’re enrolled for the next cohort starting Monday 5 PM 🗣️", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: That’s a powerful module! You’re enrolled for the next cohort starting Monday 5 PM 🗣️", "orbit"));
               break;
             case "Strategic Thinking 101":
-              addMessage("Orbit: Course added! Expect weekly nudges and reflection prompts to challenge your assumptions 🔍", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Course added! Expect weekly nudges and reflection prompts to challenge your assumptions 🔍", "orbit"));
               break;
             case "Building High-Trust Teams":
-              addMessage("Orbit: Noted — you’re on the list. Watch for a resource drop and team challenge invite on Slack 🔗", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Noted — you’re on the list. Watch for a resource drop and team challenge invite on Slack 🔗", "orbit"));
               break;
 
             case "Reflect for now":
-              addMessage("Orbit: Totally fair. Take a breather and come back when you’re ready 🧠", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: Totally fair. Take a breather and come back when you’re ready 🧠", "orbit"));
               break;
 default:
-              addMessage("Orbit: I’ve logged that. Let me know if you need anything else 🪐", "orbit");
+              showTypingAndReply(() => addMessage("Orbit: I’ve logged that. Let me know if you need anything else 🪐", "orbit"));
               break;
           }
         };
         nudgeOptions.appendChild(btn);
       });
     }
+
+function showTypingAndReply(replyFn) {
+  const typingMsg = document.createElement("div");
+  typingMsg.className = "msg orbit";
+  typingMsg.textContent = "Orbit is typing...";
+  messagesDiv.appendChild(typingMsg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  setTimeout(() => {
+    messagesDiv.removeChild(typingMsg);
+    replyFn();
+  }, 600);
+}
+
 </script>
-</body>
+<script>
+document.getElementById("resetBtn").onclick = () => {
+  messagesDiv.innerHTML = "";
+  nudgeOptions.innerHTML = "";
+  userInput.value = "";
+  addMessage("Hi Sam 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
+  showMoodOptions();
+  addPeerActivityTab();
+};
+</script></body>
 </html>
