@@ -104,6 +104,12 @@
     window.onload = () => {
       addMessage("Hi Sam 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
       showMoodOptions();
+
+      // Communal nudge after 10s
+      setTimeout(() => {
+        addMessage("Orbit: Just FYI — Katherine from Marketing joined the Theater Pod for this weekend. Since you’re into Theater, want me to RSVP you too?", "orbit");
+        showFlowOptions(["Yes, sign me up", "Maybe later", "Not interested"]);
+      }, 10000);
     };
 
     function addMessage(text, sender) {
@@ -149,7 +155,65 @@
         const btn = document.createElement("button");
         btn.className = "option-button";
         btn.textContent = option;
-        btn.onclick = () => addMessage("You selected: " + option, "user");
+        btn.onclick = () => {
+        addMessage("You selected: " + option, "user");
+        switch(option) {
+          case "Maybe later":
+            addMessage("Orbit: No problem — I’ll remind you again closer to the weekend!", "orbit");
+            break;
+          case "Not interested":
+            addMessage("Orbit: All good — your space, your pace 😊", "orbit");
+            break;
+          case "Join Calisthenics":
+            addMessage("Orbit: Got it! Signing you up for the Calisthenics Pod 💪", "orbit");
+            break;
+          case "Nominate a Colleague":
+            addMessage("Orbit: Great — send me a name and I’ll draft a thank-you shoutout 📣", "orbit");
+            break;
+          case "Join the Theater Pod":
+            addMessage("Orbit: Perfect — you’re in. Expect the first nudge Friday 10am 🎭", "orbit");
+            break;
+          case "Play breathing track":
+            addMessage("Orbit: Here's a 3-minute breathing track to ground yourself 🌬️", "orbit");
+            break;
+          case "Try sound therapy":
+            addMessage("Orbit: Sending over a binaural session now 🎧", "orbit");
+            break;
+          case "Write down what’s bugging me":
+            addMessage("Orbit: Reflect freely — I won’t store this. Just let it out 📝", "orbit");
+            break;
+          case "Gratitude reset":
+            addMessage("Orbit: Take 30 seconds and list 3 small wins today 💡", "orbit");
+            break;
+          case "Light meme":
+            addMessage("Orbit: One culture-friendly meme coming your way 🤭", "orbit");
+            break;
+          case "Talk to someone":
+            addMessage("Orbit: Noted — I’ll notify the wellness coach for a light check-in ☎️", "orbit");
+            break;
+          case "Request time off":
+            addMessage("Orbit: Next Fri–Mon looks light. Prepping your time-off request ✈️", "orbit");
+            break;
+          case "Adjust workload":
+            addMessage("Orbit: Let me check your sprint and see what can shift 🔁", "orbit");
+            break;
+          case "Talk to a wellness coach":
+            addMessage("Orbit: Routing your concern to our human wellness partner 💬", "orbit");
+            break;
+          case "Show me mentors":
+            addMessage("Orbit: Pulling up CXO and senior mentors across functions 👥", "orbit");
+            break;
+          case "Upskill with leadership Pods":
+            addMessage("Orbit: Got it — highlighting top 3 leadership Pods tailored for you 🚀", "orbit");
+            break;
+          case "Reflect for now":
+            addMessage("Orbit: Take your time — you know where to find me 🪐", "orbit");
+            break;
+        }
+        if (option === "Yes, sign me up") {
+          addMessage("Orbit: Awesome — you’re now on the list for the Open Air Theatre Workshop 🎭 I’ve also added a reminder to your calendar!", "orbit");
+        }
+      };
         nudgeOptions.appendChild(btn);
       });
     }
@@ -172,3 +236,4 @@
   </script>
 </body>
 </html>
+
