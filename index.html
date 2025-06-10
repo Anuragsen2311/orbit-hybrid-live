@@ -157,7 +157,7 @@
 
       const lower = text.toLowerCase();
       if (lower.includes("motivation") || lower.includes("lost")) {
-        showTypingAndReply(() => addMessage("Orbit: That’s a very real feeling, Sam. It happens to the best of us.", "orbit"));
+        showTypingAndReply(() => addMessage("Orbit: That’s a very real feeling, Anurag. It happens to the best of us.", "orbit"));
         showTypingAndReply(() => addMessage("Orbit: Would you like to explore mentorship or leadership Pods?", "orbit"));
         showFlowOptions(["Show me mentors", "Upskill with leadership Pods", "Reflect for now"]);
       } else if (lower.includes("anxious") || lower.includes("overwhelmed")) {
@@ -307,7 +307,7 @@ document.getElementById("resetBtn").onclick = () => {
   messagesDiv.innerHTML = "";
   nudgeOptions.innerHTML = "";
   userInput.value = "";
-  addMessage("Hi Sam 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
+  addMessage("Hi Anurag 👋 I'm Orbit — here to support your focus, growth, and well-being. How are you feeling today?", "orbit");
   showMoodOptions();
   addPeerActivityTab();
 };
